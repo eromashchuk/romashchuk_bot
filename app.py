@@ -19,7 +19,7 @@ def values(message: telebot.types.Message):
     bot.reply_to(message, text)
 
 @bot.message_handler(content_types=['text'])
-def  get_price(message: telebot.types.Message):
+def get_price(message: telebot.types.Message):
     values = message.text.split(' ')
     base, quote, qty = values
     try:
@@ -30,7 +30,7 @@ def  get_price(message: telebot.types.Message):
         total_base = Converter.get_price(base, quote, qty)
     except APIException as er:
         bot.send_message(message.chat.id, f'Ошибка пользователя: {er}')
-    except BaseException as e:
+    except Exception as e:
         bot.send_message(message.chat.id, f'Ошибка: {e}')
     else:
         text = f'Итого: {qty} {base} = {total_base} {quote}'
